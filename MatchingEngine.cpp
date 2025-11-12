@@ -276,9 +276,9 @@ namespace {
 
             if (compatible.empty()) continue;
 
-            // Sort compatible freights by departure time (latest first = closest to deadline)
+            // Sort compatible freights by departure time (earliest first)
             sort(compatible.begin(), compatible.end(), [&](size_t a, size_t b) {
-                return freights[a].getTime() > freights[b].getTime();
+                return freights[a].getTime() < freights[b].getTime();
                 });
 
             // Assign to freights until cargo is fully allocated
