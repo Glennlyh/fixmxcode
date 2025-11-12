@@ -55,6 +55,10 @@ public:
     static bool savePlanByCargoTimeCSV(const std::vector<Freight>& freights,
                                        const std::vector<Cargo>& cargos,
                                        const std::string& outFile);
+
+    static bool savePlanByMinimumFreightCSV(const std::vector<Freight>& freights,
+                                            const std::vector<Cargo>& cargos,
+                                            const std::string& outFile);
 };
 
 #endif
