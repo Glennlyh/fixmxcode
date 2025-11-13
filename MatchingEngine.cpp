@@ -216,7 +216,8 @@ namespace {
         const vector<Cargo>& cargos,
         vector<Row>& plan,
         vector<int>& capLeft,
-        vector<int>& remain) {
+        vector<int>& remain,
+        bool useEarliestFirst = false) {
         const int EARLY = 15;
 
         // Initialize capacity tracking
@@ -276,10 +277,18 @@ namespace {
 
             if (compatible.empty()) continue;
 
-            // Sort compatible freights by departure time (latest first = closest to deadline)
-            sort(compatible.begin(), compatible.end(), [&](size_t a, size_t b) {
-                return freights[a].getTime() > freights[b].getTime();
-                });
+            // Sort compatible freights by departure time
+            if (useEarliestFirst) {
+                // Earliest first - prioritize freights departing earlier
+                sort(compatible.begin(), compatible.end(), [&](size_t a, size_t b) {
+                    return freights[a].getTime() < freights[b].getTime();
+                    });
+            } else {
+                // Latest first - prioritize freights closest to deadline
+                sort(compatible.begin(), compatible.end(), [&](size_t a, size_t b) {
+                    return freights[a].getTime() > freights[b].getTime();
+                    });
+            }
 
             // Assign to freights until cargo is fully allocated
             for (size_t fi : compatible) {
@@ -349,7 +358,7 @@ void MatchingEngine::printPlanSortedByCargoTime(const vector<Freight>& freights,
                                                 const vector<Cargo>& cargos) {
     vector<Row> plan;
     vector<int> capLeft, remain;
-    buildPackedPlan(freights, cargos, plan, capLeft, remain);
+    buildPackedPlan(freights, cargos, plan, capLeft, remain, true); // Use earliest first
 
     // Group plan rows by cargo index
     map<int, vector<size_t>> cargoGroups;
@@ -494,7 +503,7 @@ bool MatchingEngine::savePlanByCargoTimeCSV(const vector<Freight>& freights,
     // Build packed plan
     vector<Row> plan;
     vector<int> capLeft, remain;
-    buildPackedPlan(freights, cargos, plan, capLeft, remain);
+    buildPackedPlan(freights, cargos, plan, capLeft, remain, true); // Use earliest first
 
     // sort by cargo deadline, then freight time
     vector<size_t> order(plan.size());
