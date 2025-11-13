@@ -1,0 +1,17 @@
+Schedule Summary
+Freight F25 (Tokyo 5:10pm) -> Cargo C13 (Tokyo deadline 5:10pm)
+Freight F02 (Amsterdam 7:20am) -> Cargo C02 (Amsterdam deadline 7:25am)
+Freight F06 (Bangkok 9:15am) -> NONE
+Freight F14 (Tokyo 5:10pm) -> Cargo C14 (Tokyo deadline 5:20pm)
+Freight F19 (New York 5:10pm) -> NONE
+Freight F26 (Tokyo 5:15pm) -> NONE
+Freight F37 (Jakarta 9:30pm) -> Cargo C15 (Jakarta deadline 9:41pm)
+Freight F48 (Paris 11:59pm) -> Cargo C58 (Paris deadline 11:59pm)
+Freight F01 (Amsterdam 7:10am) -> Cargo C01 (Amsterdam deadline 7:20am)
+Freight F13 (Tokyo 5:00pm) -> NONE
+
+Unassigned Cargo:
+  - C08 | Bangkok | 8:55am | group=2
+  - C47 | Paris | 11:50pm
+  - C36 | Paris | 11:45pm
+  - C18 | Jakarta | 10:30pm | group=2
