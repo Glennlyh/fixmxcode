@@ -7,3 +7,7 @@ scheduler
 # Temporary files
 *.tmp
 *~
+
+# Test output files
+test_*.txt
+test_*.csv
