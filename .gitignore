@@ -1,0 +1,13 @@
+# Build artifacts
+scheduler
+*.o
+*.exe
+*.out
+
+# Temporary files
+*.tmp
+*~
+
+# Test output files
+test_*.txt
+test_*.csv

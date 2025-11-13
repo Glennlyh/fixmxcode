@@ -226,8 +226,27 @@ void ConsoleUI::saveScheduleAndCSV(const FreightManager& fm, const CargoManager&
 	const std::string txt = trim(txtFilename);
 	const std::string csv = createCSV(txt);
 
+	// Ask user which CSV format they want
+	std::cout << "CSV export format:\n"
+		<< "  a) Sorted by cargo arrival time\n"
+		<< "  b) Sorted by minimum freight\n"
+		<< "Select: ";
+	std::string csvChoice;
+	std::getline(std::cin, csvChoice);
+
 	const bool okTxt = MatchingEngine::saveScheduleToFile(freights, cargos, txt);
-	const bool okCsv = MatchingEngine::savePlanByCargoTimeCSV(freights, cargos, csv);
+	bool okCsv = false;
+
+	if (csvChoice == "a") {
+		okCsv = MatchingEngine::savePlanByCargoTimeCSV(freights, cargos, csv);
+	}
+	else if (csvChoice == "b") {
+		okCsv = MatchingEngine::savePlanByMinimumFreightCSV(freights, cargos, csv);
+	}
+	else {
+		std::cout << "Invalid choice. Defaulting to sorted by cargo arrival time.\n";
+		okCsv = MatchingEngine::savePlanByCargoTimeCSV(freights, cargos, csv);
+	}
 
 	if (okTxt)
 		std::cout << "Saved updated text schedule to " << txt << "\n";
